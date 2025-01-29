@@ -158,7 +158,7 @@ public class SignUp extends javax.swing.JFrame {
         getContentPane().add(lblGreat, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 300, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IconImages/SignUp.jpg"))); // NOI18N
-        jLabel1.setText("abcde");
+        jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 710));
 
         pack();
@@ -174,6 +174,13 @@ public class SignUp extends javax.swing.JFrame {
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         LandingPage Home = new LandingPage();
+        String name = txtName.getText();
+        String userName = txtUsername.getText();
+        String password = txtPassword.getText();
+
+        AccountsFileH.funcAddUserToFile("usersDatabase.txt", new User(name, userName, password));
+
+
         Home.setVisible(true);
         Home.pack();
         Home.setLocationRelativeTo(null);
