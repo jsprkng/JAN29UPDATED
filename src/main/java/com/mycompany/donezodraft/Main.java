@@ -4,6 +4,9 @@ import com.mycompany.donezodraft.InternalFrames.Dashboard;
 import com.mycompany.donezodraft.InternalFrames.FileH;
 import com.mycompany.donezodraft.InternalFrames.RoundedPanel;
 import com.mycompany.donezodraft.InternalFrames.Workflow;
+import com.mycompany.donezodraft.LoginSignUpForms.AccountsFileH;
+import com.mycompany.donezodraft.LoginSignUpForms.LoginForm;
+import com.mycompany.donezodraft.LoginSignUpForms.User;
 import com.mycompany.donezodraft.InternalFrames.TaskList;
 import com.mycompany.donezodraft.InternalFrames.Settings;
 import com.mycompany.donezodraft.InternalFrames.Task;
@@ -119,18 +122,18 @@ public class Main extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
-        Dashboard dashboard = new Dashboard();
+        Dashboard dashboard = new Dashboard(pnlDashboard, pnlTaskList, pnlWorkflow, pnlSettings, DefaultColor, ClickedColor);
         pnlMain.removeAll();
         pnlMain.add(dashboard);
         dashboard.setVisible(true);
         
-        String basePath = "C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\IconImages\\";
+        String basePath = "src\\main\\resources\\IconImages\\";
         setIcon(basePath + "with bg.png", lblLogo, 50, 50, 5);
-        setIcon("C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\Icon\\dashboard white.png", lblDashboard, 30, 30, 10);
-        setIcon("C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\Icon\\tasks white.png", lblTaskList, 30, 30, 18);
-        setIcon("C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\Icon\\workflow white.png", lblWorkflow, 30, 30, 15);
-        setIcon("C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\Icon\\settings white.png", lblSettings, 30, 30, 25);
-        setIcon("C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\Icon\\logout white.png", lblLogout, 30, 30, 25);
+        setIcon("src\\main\\resources\\Icon\\dashboard white.png", lblDashboard, 30, 30, 10);
+        setIcon("src\\main\\resources\\Icon\\tasks white.png", lblTaskList, 30, 30, 18);
+        setIcon("src\\main\\resources\\Icon\\workflow white.png", lblWorkflow, 30, 30, 15);
+        setIcon("src\\main\\resources\\Icon\\settings white.png", lblSettings, 30, 30, 25);
+        setIcon("src\\main\\resources\\Icon\\logout white.png", lblLogout, 30, 30, 25);
 
   
         pnlMain.revalidate();
@@ -147,7 +150,8 @@ public class Main extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        pnlMenu = new RoundedPanel();  // Use the RoundedPanel class instead of JPanel
+
+        pnlMenu = new javax.swing.JPanel();
         pnlDashboard = new javax.swing.JPanel();
         lblDashboard = new javax.swing.JLabel();
         pnlTaskList = new javax.swing.JPanel();
@@ -159,12 +163,10 @@ public class Main extends javax.swing.JFrame {
         lblLogo = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
         pnlMain = new javax.swing.JDesktopPane();
-    
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-    
-        pnlMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlMenu.setBackground(new java.awt.Color(189, 196, 212));
         pnlMenu.setForeground(new java.awt.Color(189, 196, 212));
@@ -310,9 +312,15 @@ public class Main extends javax.swing.JFrame {
         lblLogout.setForeground(new java.awt.Color(255, 255, 255));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Logout");
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseClicked(evt);
+            }
+        });
         pnlMenu.add(lblLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 610, 170, 50));
 
         getContentPane().add(pnlMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 274, 693));
+
         pnlMain.setBackground(new java.awt.Color(231, 231, 231));
         pnlMain.setPreferredSize(new java.awt.Dimension(979, 693));
         getContentPane().add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, -1));
@@ -351,7 +359,7 @@ public class Main extends javax.swing.JFrame {
 
     private void pnlDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlDashboardMouseClicked
         // TODO add your handling code here:
-        Dashboard dashboard = new Dashboard();
+        Dashboard dashboard = new Dashboard(pnlDashboard, pnlTaskList, pnlWorkflow, pnlSettings, DefaultColor, ClickedColor);
         pnlMain.removeAll();
         pnlMain.add(dashboard).setVisible(true);
     }//GEN-LAST:event_pnlDashboardMouseClicked
@@ -385,6 +393,21 @@ public class Main extends javax.swing.JFrame {
         pnlMain.removeAll();
         pnlMain.add(settings).setVisible(true);
     }//GEN-LAST:event_pnlSettingsMouseClicked
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+            // LoginForm Login = new LoginForm();
+            // Login.setVisible(true);
+            // Login.pack();
+            // Login.setLocationRelativeTo(null);
+            // Login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            // this.dispose();
+        LandingPage Home = new LandingPage();
+        Home.setVisible(true);
+        Home.pack();
+        Home.setLocationRelativeTo(null);
+        Home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_lblLogoutMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
