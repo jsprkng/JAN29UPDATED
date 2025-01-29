@@ -5,12 +5,16 @@
 package com.mycompany.donezodraft.LoginSignUpForms;
 
 import com.mycompany.donezodraft.Main;
+import com.mycompany.donezodraft.InternalFrames.Task;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 /**
@@ -18,6 +22,7 @@ import javax.swing.*;
  * @author jaspe
  */
 public class LoginForm extends javax.swing.JFrame {
+    private final ArrayList<User> userAccounts = new ArrayList<>();
 
     /**
      * Creates new form LoginForm
@@ -209,12 +214,28 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Main dash = new Main();
-        dash.setVisible(true);
-        dash.pack();
-        dash.setLocationRelativeTo(null);
-        dash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.dispose();
+        AccountsFileH.funcClearFile("currentUsersDatabase.txt");
+        userAccounts.addAll(AccountsFileH.funcReadUsersFromFile("usersDatabase.txt"));
+        String logInUsername = txtUserName.getText();
+        String logInPassword = txtPassword.getText();
+        boolean logInSuccessfully = false;
+        for(User user: userAccounts){
+            System.out.println(user);
+            if(logInUsername.equals(user.getUsername()) && logInPassword.equals(user.getPassword())){
+                AccountsFileH.funcAddUserToFile("currentUsersDatabase.txt", user);
+                JOptionPane.showMessageDialog(null, "Log-in Successfully!", "Login", JOptionPane.INFORMATION_MESSAGE);
+                Main dash = new Main();
+                dash.setVisible(true);
+                dash.pack();
+                dash.setLocationRelativeTo(null);
+                dash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                this.dispose();
+                logInSuccessfully = true;
+                break;
+            }
+        }
+        if (logInSuccessfully == false)
+        JOptionPane.showMessageDialog(null, "Error username/password! Try again", "Login", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void cbRememberMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRememberMeActionPerformed
