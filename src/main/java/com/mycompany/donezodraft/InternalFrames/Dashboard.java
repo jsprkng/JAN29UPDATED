@@ -1,5 +1,7 @@
 package com.mycompany.donezodraft.InternalFrames;
 
+import com.mycompany.donezodraft.LoginSignUpForms.AccountsFileH;
+import com.mycompany.donezodraft.LoginSignUpForms.User;
 import com.mycompany.donezodraft.animations.MyButton;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -13,6 +15,8 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import com.mycompany.donezodraft.LoginSignUpForms.AccountsFileH;
+import com.mycompany.donezodraft.LoginSignUpForms.User;
 
 public class Dashboard extends javax.swing.JInternalFrame {
     private static final ArrayList<Task> tasks = new ArrayList<>();
@@ -24,8 +28,20 @@ public class Dashboard extends javax.swing.JInternalFrame {
     static int intStartEarly = 0;
     static int intScheduleLater = 0;
     private static final String FILE_PATH = "database.txt";
+    private JPanel pnlDashboard;
+    private JPanel pnlTaskList;
+    private JPanel pnlWorkflow;
+    private JPanel pnlSettings;
+    private Color DefaultColor;
+    private Color ClickedColor;
 
-    public Dashboard() {
+    public Dashboard(JPanel pnlDashboard, JPanel pnlTaskList, JPanel pnlWorkflow, JPanel pnlSettings, Color DefaultColor, Color ClickedColor) {
+        this.pnlDashboard = pnlDashboard;
+        this.pnlTaskList = pnlTaskList;
+        this.pnlWorkflow = pnlWorkflow;
+        this.pnlSettings = pnlSettings;
+        this.DefaultColor = DefaultColor;
+        this.ClickedColor = ClickedColor;
         loadTasks();
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -42,7 +58,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         loadFont("/fontStyles/Outfit-SemiBold.ttf", 14f, new Color(21, 112, 27), lblScheduleLater );
         loadFont("/fontStyles/Outfit-Regular.ttf", 16f, new Color(15, 26, 43), lblCountImmediate, lblCountStart, lblCountLater);
         
-        String imagePath = "C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\IconImages\\may box.png";
+        String imagePath = "src\\main\\resources\\IconImages\\may box.png";
         ImageIcon icon = new ImageIcon(imagePath);
         lblMascot.setIcon(new ImageIcon(icon.getImage().getScaledInstance(lblMascot.getWidth(), lblMascot.getHeight(), java.awt.Image.SCALE_SMOOTH)));
         lblMascot.setText("");
@@ -196,6 +212,12 @@ public class Dashboard extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        ArrayList<User> currentUser = AccountsFileH.funcReadUsersFromFile("currentUsersDatabase.txt");
+        String name = "Name";
+        if(!(currentUser.isEmpty())){
+            name = currentUser.get(0).getName();
+        }
+            
 
         jPasswordField1 = new javax.swing.JPasswordField();
         lblMascot = new javax.swing.JLabel();
@@ -245,7 +267,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
 
         lblGreeting.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblGreeting.setForeground(new java.awt.Color(255, 255, 255));
-        lblGreeting.setText("Hello, Name!");
+        lblGreeting.setText("Hello, " + name +"!");
 
         lblMessage.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblMessage.setForeground(new java.awt.Color(255, 255, 255));
@@ -497,7 +519,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         btnWorkflow.setText("Workflow");
         btnWorkflow.setBorderPainted(false);  
         btnWorkflow.setFocusPainted(false);
-        String imagePath = "C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\Icon\\workflow white.png";
+        String imagePath = "src\\main\\resources\\Icon\\workflow white.png";
         ImageIcon icon = new ImageIcon(imagePath);
         btnWorkflow.setIcon(icon);
         btnWorkflow.setIcon(new ImageIcon(icon.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
@@ -518,7 +540,7 @@ public class Dashboard extends javax.swing.JInternalFrame {
         btnAddTask.setText("TaskList");
         btnAddTask.setBorderPainted(false);  
         btnAddTask.setFocusPainted(false);
-        String imagePath2 = "C:\\Users\\jaspe\\OneDrive\\Desktop\\Jan14DoneZo-main\\Jan14UpdateDoneZo\\src\\main\\resources\\Icon\\tasks white.png";
+        String imagePath2 = "src\\main\\resources\\Icon\\tasks white.png";
         ImageIcon icon2 = new ImageIcon(imagePath2);
         btnAddTask.setIcon(icon2);
         btnAddTask.setIcon(new ImageIcon(icon2.getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));
@@ -536,7 +558,10 @@ public class Dashboard extends javax.swing.JInternalFrame {
 
     private void btnWorkflowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWorkflowActionPerformed
         JDesktopPane desktopPane = getDesktopPane();
-    
+        pnlDashboard.setBackground(DefaultColor);
+        pnlTaskList.setBackground(DefaultColor);
+        pnlWorkflow.setBackground(ClickedColor);
+        pnlSettings.setBackground(DefaultColor);
         for (JInternalFrame frame : desktopPane.getAllFrames()) {
             frame.dispose();
         }
@@ -549,7 +574,10 @@ public class Dashboard extends javax.swing.JInternalFrame {
 
     private void btnAddTaskActionPerformed(java.awt.event.ActionEvent evt) {                                           
         JDesktopPane desktopPane = getDesktopPane();
-    
+        pnlDashboard.setBackground(DefaultColor);
+        pnlTaskList.setBackground(ClickedColor);
+        pnlWorkflow.setBackground(DefaultColor);
+        pnlSettings.setBackground(DefaultColor);
         for (JInternalFrame frame : desktopPane.getAllFrames()) {
             frame.dispose();
         }
